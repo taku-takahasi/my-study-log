@@ -2,12 +2,12 @@ const STORAGE_KEY = "tiny-diary.entries.v1";
 
 const moods = {
   happy: {
-    label: "うれしい",
+    label: "絶好調",
     face: "😊",
     score: 5,
   },
   calm: {
-    label: "おだやか",
+    label: "好調",
     face: "😌",
     score: 4,
   },
@@ -17,12 +17,12 @@ const moods = {
     score: 3,
   },
   tired: {
-    label: "つかれた",
+    label: "少し疲れた",
     face: "😵‍💫",
     score: 2,
   },
   sad: {
-    label: "しょんぼり",
+    label: "集中しづらい",
     face: "🥲",
     score: 1,
   },
@@ -171,13 +171,13 @@ function renderEntries() {
 
   if (entries.length > 0 && filteredEntries.length === 0) {
     emptyState.innerHTML = `
-      <strong>条件に合う記録がありません</strong>
-      <span>検索ワードや気分フィルターを変えてみてください。</span>
+      <strong>条件に合う学習記録がありません</strong>
+      <span>検索ワードや調子のフィルターを変えてみてください。</span>
     `;
   } else {
     emptyState.innerHTML = `
-      <strong>まだ記録がありません</strong>
-      <span>今日の気分と一言メモを保存すると、ここに表示されます。</span>
+      <strong>まだ学習記録がありません</strong>
+      <span>今日の調子と学習メモを保存すると、ここに表示されます。</span>
     `;
   }
 
@@ -200,7 +200,7 @@ function renderBiorhythm() {
   if (entries.length === 0) {
     rhythmChart.innerHTML = "";
     biorhythmMessage.textContent = "記録を保存すると表示されます";
-    biorhythmDetail.textContent = "最近7件の気分を波形グラフで表示します。";
+    biorhythmDetail.textContent = "最近7件の調子を波形グラフで表示します。";
     return;
   }
 
@@ -220,7 +220,7 @@ function renderBiorhythm() {
   rhythmChart.innerHTML = createBiorhythmSvg(recentEntries);
 
   biorhythmMessage.textContent = getBiorhythmMessage(trend, average, recentEntries.length);
-  biorhythmDetail.textContent = `最近${recentEntries.length}件の平均: ${average.toFixed(1)} / 5`;
+  biorhythmDetail.textContent = `最近${recentEntries.length}件の平均集中度: ${average.toFixed(1)} / 5`;
 }
 
 function createBiorhythmSvg(recentEntries) {
@@ -267,7 +267,7 @@ function createBiorhythmSvg(recentEntries) {
       class="rhythm-svg"
       viewBox="0 0 ${width} ${height}"
       role="img"
-      aria-label="最近${recentEntries.length}件の気分バイオリズム"
+      aria-label="最近${recentEntries.length}件の学習コンディション"
     >
       <defs>
         <linearGradient id="rhythm-line-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -338,34 +338,34 @@ function buildSinglePointWave(point, chartWidth) {
 
 function getBiorhythmMessage(trend, average, entryLength) {
   if (entryLength === 1) {
-    return "最初のリズムを記録しました";
+    return "最初の学習コンディションを記録しました";
   }
 
   if (trend >= 2) {
-    return "上向きのリズム";
+    return "集中度が上向き";
   }
 
   if (trend >= 0.5) {
-    return "少し上向き";
+    return "少し集中しやすい流れ";
   }
 
   if (trend <= -2) {
-    return "休むサイン多め";
+    return "休憩を取りたい流れ";
   }
 
   if (trend <= -0.5) {
-    return "少し下がり気味";
+    return "少し集中しづらい流れ";
   }
 
   if (average >= 4) {
-    return "安定していい流れ";
+    return "安定して学習できています";
   }
 
   if (average <= 2.2) {
-    return "ゆっくり整えたいリズム";
+    return "無理せず整えたい流れ";
   }
 
-  return "安定したリズム";
+  return "安定した学習コンディション";
 }
 
 function render() {
@@ -380,7 +380,7 @@ function resetForm() {
   dateInput.value = getTodayIso();
   clearSelectedMood();
   noteInput.value = "";
-  editingLabel.textContent = "今日の記録を書いています";
+  editingLabel.textContent = "今日の学習記録を書いています";
   updateCharCount();
   updateSaveState("未保存");
   renderBiorhythm();
@@ -453,7 +453,7 @@ dateInput.addEventListener("change", () => {
 
   clearSelectedMood();
   noteInput.value = "";
-  editingLabel.textContent = `${formatDate(dateInput.value)}の記録を書いています`;
+  editingLabel.textContent = `${formatDate(dateInput.value)}の学習記録を書いています`;
   updateCharCount();
   updateSaveState("未保存");
   renderBiorhythm();

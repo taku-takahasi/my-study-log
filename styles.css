@@ -517,6 +517,41 @@ textarea:focus {
     padding: 18px;
   }
 
+  .editor-panel {
+    padding: 16px;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  .brand-row,
+  .history-header {
+    margin-bottom: 16px;
+  }
+
+  .diary-form {
+    gap: 9px;
+  }
+
+  textarea {
+    min-height: 82px;
+  }
+
+  .mood-option {
+    min-height: 66px;
+  }
+
+  .biorhythm {
+    padding: 12px;
+  }
+
+  .rhythm-chart,
+  .rhythm-svg {
+    min-height: 132px;
+    height: 132px;
+  }
+
   .brand-row,
   .history-header,
   .list-tools {
